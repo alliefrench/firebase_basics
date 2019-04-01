@@ -86,31 +86,6 @@
 /************************************************************************/
 /******/ ({
 
-/***/ "../data.js":
-/*!******************!*\
-  !*** ../data.js ***!
-  \******************/
-/*! exports provided: data */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "data", function() { return data; });
-const data = {
-  posts: [{
-    id: 1,
-    text: "Hey check me outttt"
-  }, {
-    id: 2,
-    text: "I love this song"
-  }, {
-    id: 3,
-    text: "Heyyyyy another post"
-  }]
-};
-
-/***/ }),
-
 /***/ "./node_modules/@firebase/app/dist/index.cjs.js":
 /*!******************************************************!*\
   !*** ./node_modules/@firebase/app/dist/index.cjs.js ***!
@@ -73251,6 +73226,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var firebase__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(firebase__WEBPACK_IMPORTED_MODULE_2__);
 /* harmony import */ var _Profile__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./Profile */ "./src/client/Profile.js");
 /* harmony import */ var _PostsList__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./PostsList */ "./src/client/PostsList.js");
+/* harmony import */ var _config_config__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./config/config */ "./src/client/config/config.js");
+
 
 
 
@@ -73264,13 +73241,7 @@ class Main extends react__WEBPACK_IMPORTED_MODULE_0__["Component"] {
   }
 
   initializeFirebase() {
-    const config = {
-      apiKey: "AIzaSyClpKDyBBTrMMItJN-v8UwnJHQzbiPepdA",
-      authDomain: "my-awesome-project1-3fbe0.firebaseapp.com",
-      databaseURL: "https://my-awesome-project1-3fbe0.firebaseio.com",
-      storageBucket: "my-awesome-project1-3fbe0.appspot.com"
-    };
-    firebase__WEBPACK_IMPORTED_MODULE_2___default.a.initializeApp(config);
+    firebase__WEBPACK_IMPORTED_MODULE_2___default.a.initializeApp(_config_config__WEBPACK_IMPORTED_MODULE_5__["default"]);
   }
 
   render() {
@@ -73299,6 +73270,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return NewPostForm; });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var firebase__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! firebase */ "./node_modules/firebase/dist/index.cjs.js");
+/* harmony import */ var firebase__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(firebase__WEBPACK_IMPORTED_MODULE_1__);
+
 
 class NewPostForm extends react__WEBPACK_IMPORTED_MODULE_0__["Component"] {
   constructor(props) {
@@ -73320,6 +73294,9 @@ class NewPostForm extends react__WEBPACK_IMPORTED_MODULE_0__["Component"] {
 
   handleSubmit(submitEvent) {
     submitEvent.preventDefault();
+    firebase__WEBPACK_IMPORTED_MODULE_1___default.a.database().ref('posts/').push({
+      text: this.state.postText
+    });
   }
 
   render() {
@@ -73376,9 +73353,12 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return PostsListContainer; });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _NewPostForm__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./NewPostForm */ "./src/client/NewPostForm.js");
-/* harmony import */ var _Post__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./Post */ "./src/client/Post.js");
-/* harmony import */ var _data__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../data */ "../data.js");
+/* harmony import */ var firebase__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! firebase */ "./node_modules/firebase/dist/index.cjs.js");
+/* harmony import */ var firebase__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(firebase__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _NewPostForm__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./NewPostForm */ "./src/client/NewPostForm.js");
+/* harmony import */ var _Post__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./Post */ "./src/client/Post.js");
+/* harmony import */ var _utils_utils__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./utils/utils */ "./src/client/utils/utils.js");
+
 
 
 
@@ -73387,10 +73367,10 @@ __webpack_require__.r(__webpack_exports__);
 function PostsList({
   posts
 }) {
-  console.log("POSTS", posts);
+  console.log('POSTS', posts);
   return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
     id: "posts"
-  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_NewPostForm__WEBPACK_IMPORTED_MODULE_1__["default"], null), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h3", null, "Ash's posts:"), posts.map(post => react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_Post__WEBPACK_IMPORTED_MODULE_2__["default"], {
+  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_NewPostForm__WEBPACK_IMPORTED_MODULE_2__["default"], null), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h3", null, "Ash's posts:"), posts.map(post => react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_Post__WEBPACK_IMPORTED_MODULE_3__["default"], {
     key: post.id,
     text: post.text
   })));
@@ -73399,12 +73379,23 @@ function PostsList({
 class PostsListContainer extends react__WEBPACK_IMPORTED_MODULE_0__["Component"] {
   constructor() {
     super();
-    this.state = _data__WEBPACK_IMPORTED_MODULE_3__["data"];
+    this.state = '';
+    this.postRef = firebase__WEBPACK_IMPORTED_MODULE_1___default.a.database().ref('posts/'); //reference to firebase posts
+  }
+
+  componentDidMount() {
+    //listener for updates
+    this.postRef.on('value', snapshot => {
+      const posts = Object(_utils_utils__WEBPACK_IMPORTED_MODULE_4__["transform"])(snapshot.val());
+      this.setState({
+        posts
+      });
+    });
   }
 
   render() {
-    console.log("STATEEE", this.state);
-    return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(PostsList, this.state);
+    console.log('STATEEE', this.state);
+    return this.state.posts ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(PostsList, this.state) : 'loading';
   }
 
 }
@@ -73442,6 +73433,50 @@ function Profile() {
     id: "favorite-things"
   }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", null, "Loves catching Pokemon"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", null, "Born May 22"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", null, "Likes the color dark green"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", null, "Top Pokemon trainer"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", null, "Favorite Pokemon type is Grass")));
 }
+
+/***/ }),
+
+/***/ "./src/client/config/config.js":
+/*!*************************************!*\
+  !*** ./src/client/config/config.js ***!
+  \*************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony default export */ __webpack_exports__["default"] = ({
+  apiKey: 'AIzaSyBgMSjsuITbbAZKYnVx6S8Za2tAgftTWSo',
+  authDomain: 'cool-firebase-6cfd3.firebaseapp.com',
+  databaseURL: 'https://cool-firebase-6cfd3.firebaseio.com',
+  storageBucket: 'cool-firebase-6cfd3.appspot.com'
+});
+
+/***/ }),
+
+/***/ "./src/client/utils/utils.js":
+/*!***********************************!*\
+  !*** ./src/client/utils/utils.js ***!
+  \***********************************/
+/*! exports provided: transform */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "transform", function() { return transform; });
+const transform = value => {
+  let objectToArray = [];
+
+  if (value !== null) {
+    const keys = Object.keys(value);
+    objectToArray = keys.map(k => ({
+      id: k,
+      text: value[k].text
+    }));
+  }
+
+  return objectToArray;
+};
 
 /***/ })
 

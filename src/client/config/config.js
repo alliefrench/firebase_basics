@@ -1,6 +1,6 @@
 export default {
-  apiKey: "AIzaSyClpKDyBBTrMMItJN-v8UwnJHQzbiPepdA",
-  authDomain: "my-awesome-project1-3fbe0.firebaseapp.com",
-  databaseURL: "https://my-awesome-project1-3fbe0.firebaseio.com",
-  storageBucket: "my-awesome-project1-3fbe0.appspot.com",
-}
+  apiKey: 'AIzaSyBgMSjsuITbbAZKYnVx6S8Za2tAgftTWSo',
+  authDomain: 'cool-firebase-6cfd3.firebaseapp.com',
+  databaseURL: 'https://cool-firebase-6cfd3.firebaseio.com',
+  storageBucket: 'cool-firebase-6cfd3.appspot.com',
+};

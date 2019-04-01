@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import firebase from 'firebase';
 
 export default class NewPostForm extends Component {
   constructor(props) {
@@ -20,6 +21,12 @@ export default class NewPostForm extends Component {
 
   handleSubmit(submitEvent) {
     submitEvent.preventDefault();
+    firebase
+      .database()
+      .ref('posts/')
+      .push({
+        text: this.state.postText,
+      });
   }
 
   render() {
